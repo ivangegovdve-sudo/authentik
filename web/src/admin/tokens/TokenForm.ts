@@ -16,7 +16,7 @@ import { CoreApi, CoreUsersListRequest, IntentEnum, Token, User } from "@goauthe
 
 import { msg } from "@lit/localize";
 import { html, TemplateResult } from "lit";
-import { customElement, state } from "lit/decorators.js";
+import { customElement, property, state } from "lit/decorators.js";
 
 const EXPIRATION_DURATION = 30 * 60 * 1000; // 30 minutes
 
@@ -24,6 +24,12 @@ const EXPIRATION_DURATION = 30 * 60 * 1000; // 30 minutes
 export class TokenForm extends ModelForm<Token, string> {
     public static override verboseName = msg("Token");
     public static override verboseNamePlural = msg("Tokens");
+
+    /**
+     * Pre-selected user for new tokens, e.g. when creating a token from a user's detail page.
+     */
+    @property({ attribute: false })
+    public defaultUser: User | null = null;
 
     protected expirationMinimumDate = new Date();
 
@@ -113,8 +119,13 @@ export class TokenForm extends ModelForm<Token, string> {
                             args.search = query;
                         }
 
+<<<<<<< HEAD
                         const users = await new CoreApi(DEFAULT_CONFIG).coreUsersList(args);
                         const instanceUser = this.instance?.userObj;
+=======
+                        const users = await aki(CoreApi).coreUsersList(args);
+                        const instanceUser = this.instance?.userObj ?? this.defaultUser;
+>>>>>>> fadc14eddc (web: Fix stale clipboard tokens, untranslated labels (#23063))
 
                         if (!instanceUser) {
                             return users.results;
@@ -136,7 +147,11 @@ export class TokenForm extends ModelForm<Token, string> {
                         return user?.pk;
                     }}
                     .selected=${(user: User): boolean => {
-                        return this.instance?.user === user.pk;
+                        if (this.instance) {
+                            return this.instance.user === user.pk;
+                        }
+
+                        return this.defaultUser?.pk === user.pk;
                     }}
                 >
                 </ak-search-select>

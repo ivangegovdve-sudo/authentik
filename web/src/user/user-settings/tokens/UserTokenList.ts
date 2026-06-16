@@ -7,8 +7,13 @@ import "#elements/forms/ModalForm";
 import "#user/user-settings/tokens/UserTokenForm";
 import "@patternfly/elements/pf-tooltip/pf-tooltip.js";
 
+<<<<<<< HEAD
 import { DEFAULT_CONFIG } from "#common/api/config";
 import { intentToLabel } from "#common/labels";
+=======
+import { aki } from "#common/api/client";
+import { formatIntentLabel } from "#common/labels";
+>>>>>>> fadc14eddc (web: Fix stale clipboard tokens, untranslated labels (#23063))
 import { formatElapsedTime } from "#common/temporal";
 
 import { IconTokenCopyButton } from "#elements/buttons/IconTokenCopyButton";
@@ -132,7 +137,7 @@ export class UserTokenList extends Table<Token> {
                 </dt>
                 <dd class="pf-c-description-list__description">
                     <div class="pf-c-description-list__text">
-                        ${intentToLabel(item.intent ?? IntentEnum.Api)}
+                        ${formatIntentLabel(item.intent ?? IntentEnum.Api)}
                     </div>
                 </dd>
             </div>
@@ -175,7 +180,7 @@ export class UserTokenList extends Table<Token> {
                         </pf-tooltip>
                     </button>
                 </ak-forms-modal>
-                ${IconTokenCopyButton(item.identifier)}
+                ${IconTokenCopyButton(item)}
             `,
         ];
     }

@@ -3,6 +3,10 @@
     "extends": "@goauthentik/tsconfig",
     "compilerOptions": {
         "ignoreDeprecations": "6.0",
+<<<<<<< HEAD
+=======
+        "composite": true,
+>>>>>>> fadc14eddc (web: Fix stale clipboard tokens, untranslated labels (#23063))
         "types": ["node"],
         "checkJs": true,
         "allowJs": true,
@@ -68,6 +72,14 @@
         "storybook-static",
         "src/**/*.test.ts",
         "./tests",
+<<<<<<< HEAD
+=======
+        // Workspace subpackages each own their tsconfig and build. Including
+        // them here pulls ~1k files (notably the OpenAPI client in
+        // packages/client-ts) into every `tsc -p .` for no benefit.
+        "packages/client-ts",
+        "packages/sfe",
+>>>>>>> fadc14eddc (web: Fix stale clipboard tokens, untranslated labels (#23063))
         // TODO: @lit/localize-tools v0.8.0 has a nullish coalescing typing error.
         // Remove when we upgrade past that.
         "scripts/pseudolocalize.mjs",
